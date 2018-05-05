@@ -1,0 +1,147 @@
+'use strict';
+
+//babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch
+
+console.log('App.js is running!');
+
+// JSX - JavaScript XML
+
+var title = {
+  title: 'Indecision App',
+  subtitle: 'Put your life in the hands of a computer',
+  options: ['One', 'Two']
+};
+
+var template = React.createElement(
+  'div',
+  null,
+  React.createElement(
+    'h1',
+    null,
+    title.title
+  ),
+  title.subtitle && React.createElement(
+    'p',
+    null,
+    title.subtitle
+  ),
+  React.createElement(
+    'p',
+    null,
+    title.options.length > 0 ? 'Here are your options' : 'No Options',
+    ' '
+  ),
+  React.createElement(
+    'ol',
+    null,
+    React.createElement(
+      'li',
+      null,
+      'Item one'
+    ),
+    React.createElement(
+      'li',
+      null,
+      'Item two'
+    )
+  )
+);
+
+/* function hasOption(options){
+  if(options.length > 0){
+    return <p>Here are your options: {options}</p>;
+  }
+  else{
+    return <p>No options</p>;
+  }
+} */
+
+/* const user = {
+      //name: 'Andrew',
+      age: 26,
+    location: 'Sydney'
+  };
+  
+function getLocation(location) {
+  if (location) {
+    return <p>Location: {location} </p>;
+  } else{
+    return undefined;
+  }
+}
+
+const userName = 'Mike';
+const userAge = 26;
+const userLocation = 'Melbourne';
+const templateTwo = (
+  <div>
+      <h1>{user.name ? user.name : 'Anon'}</h1>
+      {(user.age && user.age >= 18) && <p>Age: {user.age}</p>}
+      {getLocation(user.location)}
+    </div>
+); */
+
+var count = 0;
+var addOne = function addOne() {
+  count++;
+  renderCounterApp();
+};
+var minusOne = function minusOne() {
+  count--;
+  renderCounterApp();
+};
+var reset = function reset() {
+  count = 0;
+  renderCounterApp();
+};
+//const someId = 'myidhere'
+
+//JSX has no built in data binding
+
+
+//console.log(templateTwo);
+
+// Challenge
+// Make button "-1" - setup minusOne function and register - log "minusOne"
+// Make reset button "reset" - setup reset function - log "reset"
+
+var appRoot = document.getElementById('app');
+
+var renderCounterApp = function renderCounterApp() {
+  var templateTwo = React.createElement(
+    'div',
+    null,
+    React.createElement(
+      'h1',
+      null,
+      'Count: ',
+      count
+    ),
+    React.createElement(
+      'button',
+      { onClick: addOne },
+      '+1'
+    ),
+    React.createElement(
+      'div',
+      null,
+      React.createElement(
+        'button',
+        { onClick: minusOne },
+        '-1'
+      )
+    ),
+    React.createElement(
+      'div',
+      null,
+      React.createElement(
+        'button',
+        { onClick: reset },
+        'reset'
+      )
+    )
+  );
+  ReactDOM.render(templateTwo, appRoot);
+};
+
+renderCounterApp();

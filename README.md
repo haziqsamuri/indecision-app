@@ -14,4 +14,14 @@ Set-up:
 4. yarn add babel-preset-react babel-preset-env
 
 
-To run, live-server public 
+To run, 
+
+run the following in terminal:
+
+babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch
+
+Note: if using a different file than app.js, change directory of 2nd command
+
+then in another terminal:
+
+live-server public 

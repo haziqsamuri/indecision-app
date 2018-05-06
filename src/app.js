@@ -28,21 +28,37 @@ const removeAll = () => {
   renderOptions();
 };
 
+
+const appRoot = document.getElementById('app');
+
+//const numbers = [55, 101, 1000];
+
+const onMakeDecision = () => {
+  const randomNum = (Math.floor(Math.random() * app.options.length));
+  const option = app.options[randomNum];
+  alert(option);
+  console.log(randomNum);
+};
+
+
 const renderOptions = () => {
   const template = (
     <div>
       <h1>{app.title}</h1>
       {app.subtitle && <p>{app.subtitle}</p>}
       <p>{app.options.length > 0 ? 'Here are your options': 'No Options'} </p>
-      <p>{app.options.length}</p>
+      <button disabled={app.options.length == 0} onClick={onMakeDecision}>What should I do?</button>
       <p><button onClick={removeAll}>Remove All</button></p>
       {
-        [99, 98, 97]
+        //[<p key="1">a</p>, <p key="2">b</p>, <p key="3">c</p> ]
+        /* numbers.map((number) =>{
+          return <p key={number}>Number: {number}</p>;
+        }) */
       }
         <ol>
-  
-          <li>Item one</li>
-          <li>Item two</li>
+        {
+          app.options.map((option) => <li key={option}>{option}</li>)         
+        }
         </ol>
         <form onSubmit={onFormSubmit}> 
           <input type="text" name="option"/>
@@ -53,7 +69,6 @@ const renderOptions = () => {
   ReactDOM.render(template, appRoot);
 }; 
 
-const appRoot = document.getElementById('app');
 renderOptions();
 
 /* function hasOption(options){

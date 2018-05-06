@@ -4,26 +4,58 @@ console.log('App.js is running!');
 
 // JSX - JavaScript XML
 
-const title = {
+const app = {
   title: 'Indecision App',
   subtitle: 'Put your life in the hands of a computer',
-  options: ['One', 'Two']
+  options: []
 };
 
+const onFormSubmit = (e) => {
+  e.preventDefault();
+  const option = e.target.elements.option.value;
 
-const template = (
-  <div>
-    <h1>{title.title}</h1>
-    {title.subtitle && <p>{title.subtitle}</p>}
-    <p>{title.options.length > 0 ? 'Here are your options': 'No Options'} </p>
-      <ol>
+  if ('option') {
+    app.options.push(option);
+    e.target.elements.option.value = '';
+    renderOptions();
+  }
 
-        <li>Item one</li>
-        <li>Item two</li>
-      </ol>
-  </div>
-);
-    
+  //console.log('form Submitted');
+};
+
+const removeAll = () => {
+  app.options = [];
+  renderOptions();
+};
+
+const renderOptions = () => {
+  const template = (
+    <div>
+      <h1>{app.title}</h1>
+      {app.subtitle && <p>{app.subtitle}</p>}
+      <p>{app.options.length > 0 ? 'Here are your options': 'No Options'} </p>
+      <p>{app.options.length}</p>
+      <p><button onClick={removeAll}>Remove All</button></p>
+      {
+        [99, 98, 97]
+      }
+        <ol>
+  
+          <li>Item one</li>
+          <li>Item two</li>
+        </ol>
+        <form onSubmit={onFormSubmit}> 
+          <input type="text" name="option"/>
+          <button>Add Option</button>
+        </form>
+    </div>
+  );
+  ReactDOM.render(template, appRoot);
+}; 
+
+const appRoot = document.getElementById('app');
+renderOptions();
+
 /* function hasOption(options){
   if(options.length > 0){
     return <p>Here are your options: {options}</p>;
@@ -57,44 +89,3 @@ const templateTwo = (
       {getLocation(user.location)}
     </div>
 ); */
-
-let count = 0;
-const addOne = () => {
-  count++;
-  renderCounterApp();
-};
-const minusOne = () => {
-  count--;
-  renderCounterApp();
-};
-const reset = () => {
-  count = 0;
-  renderCounterApp();
-};
-//const someId = 'myidhere'
-
-//JSX has no built in data binding
-
-
-//console.log(templateTwo);
-
-// Challenge
-// Make button "-1" - setup minusOne function and register - log "minusOne"
-// Make reset button "reset" - setup reset function - log "reset"
-
-const appRoot = document.getElementById('app');
-    
-
-const renderCounterApp = () => {
-  const templateTwo = (
-    <div>
-      <h1>Count: {count}</h1>
-      <button onClick={addOne}>+1</button>
-      <div><button onClick={minusOne}>-1</button></div>
-      <div><button onClick={reset}>reset</button></div>
-    </div>
-  );
-  ReactDOM.render(templateTwo, appRoot);
-};
-
-renderCounterApp();

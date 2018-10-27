@@ -7,9 +7,33 @@ class Counter extends React.Component{
     this.handleMinusOne = this.handleMinusOne.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.state = {
-      count: props.count
+      count: 0
     };
   }
+  componentDidMount() {
+    console.log('mounting')
+    const stringCount = localStorage.getItem('count');
+    const count = parseInt(stringCount, 10);
+    if(!isNaN(count)){
+      this.setState(()=> ({count}))
+    }
+    // try{
+      
+    // } catch (e) {
+    //   // Do nothing at all
+    // }
+    
+    //console.log('fetching data');
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(prevState.count !== this.state.count){
+      //const json = JSON.stringify(this.state.count);
+      localStorage.setItem('count', this.state.count);
+      //console.log('saving data');
+    }
+  }
+
   /* getCount(){
     return this.count;
   } */
@@ -38,11 +62,6 @@ class Counter extends React.Component{
         count: 0
       }
     })
-    this.setState((prevState)=> {
-      return{
-        count: prevState.count +1
-      }
-    })
     console.log('handleReset');
     //count = 0;
   }
@@ -59,10 +78,10 @@ class Counter extends React.Component{
   }
 }
 
-Counter.defaultProps = {
-  count: 0
-}
-ReactDOM.render(<Counter count={10} />, document.getElementById('app'));
+// Counter.defaultProps = {
+//   count: 0
+// }
+ReactDOM.render(<Counter/>, document.getElementById('app'));
 
 /* let count = 0;
 const addOne = () => {
